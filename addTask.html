@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>src="json.js"</script>
+</head>
+<body>
+<style>
+    .content {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .product {
+        width: 300px;
+        border: 1px solid;
+        padding: 35px;
+        justify-content: flex-start;
+        text-align: center;
+    }
+
+    img {
+        width: 200px;
+    }
+</style>
+
+<p>Ввод для поиска</p>
+<input class="input" type="text">
+<button class="submit">Найти</button>
+
+<div class="content"></div>
+<template class="template">
+    <div class="product">
+        <h1 class="title">Apple Frangipan Tart</h1>
+        <p class="category">Dessert</p>
+        <p class="instruction">Preheat the oven to 200C/180C Fan/Gas 6.\r\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\r\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\r\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\r\nBake for 20-25 minutes until golden-brown and set.\r\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\r\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, crème fraiche or ice cream.
+        </p>
+        <img class="img" src="https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg">
+        <p class="ingredient">digestive biscuits, butter, Bramley apples, butter, softened, caster sugar, free-range eggs, beaten,ground almonds, almond extract, flaked almonds</p>
+    </div>
+</template>
+
+<script>
+
+    function api(mealName) {
+        fetch('https://www.themealdb.com/api/json/v1/1/search.php?f=' + mealName)
+            .then(response => response.json())
+            .then(data => showProduct(data))
+            .catch(error => console.error(error));
+    }
+
+    const input = document.querySelector('.input');
+    input.addEventListener('input', (e) => {
+        api(e.target.value);
+    });
+
+    function showProduct(data) {
+        if (!data || !data.meals) {
+            return;
+        }
+    }
+    const content = document.querySelector('.content');
+    const template = document.querySelector('.template');
+
+    data.meals.forEach((elem) => {
+        const product = template.content.querySelector('.product').cloneNode(true);
+
+        content.appendChild(product);
+
+        const title = product.querySelector('.title');
+        title.textContent = elem.strMeal;
+
+
+        const category = product.querySelector('.category');
+        category.textContent = elem.strCategory;
+
+        const instruction = product.querySelector('.instruction');
+        instruction.textContent = elem.strInstructions;
+
+        const img = product.querySelector('.img');
+        img.src = elem.strMealThumb;
+
+        const ingredient = product.querySelector('.ingredient');
+        ingredient.textContent = elem.strIngredient;
+    })
+
+</script>
+</body>
+
+</html>
