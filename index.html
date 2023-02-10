@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="json.js"></script>
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+    
+        .product {
+            width: 350px;
+            border: 1px solid;
+            padding: 35px;
+            justify-content: flex-start;
+            text-align: center;
+        }
+    
+        img {
+            width: 250px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <script>console.log(data);</script>
+
+
+    <div class="content"></div>
+    
+      <script>
+        const content = document.querySelector('.content');
+
+        data.meals.forEach((elem) => {
+            const product = document.createElement('div');
+            product.classList.add('product');
+            content.appendChild(product);
+
+            const title = document.createElement('h1');
+            title.textContent = elem.strMeal;
+            product.appendChild(title);
+
+            const category = document.createElement('p');
+            category.textContent = elem.strCategory;
+            product.appendChild(category);
+
+            const instruction = document.createElement('p');
+            instruction.textContent = elem.strInstructions;
+            product.appendChild(instruction);
+
+            const img = document.createElement('img');
+            img.src = elem.strMealThumb;
+            product.appendChild(img);
+
+            const ingredient = document.createElement('p');
+            ingredient.textContent = elem.strIngredient;
+            product.appendChild(ingredient);
+
+        });
+    </script>
+</body>
+</html>
